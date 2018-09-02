@@ -1,6 +1,7 @@
 package com.yht;
 
 import com.yht.domain.User;
+import com.yht.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -53,6 +54,12 @@ public class Demo {
         String statement = namespace + ".selectById";
         User user=sqlSession.selectOne(statement,1);
         System.out.println(user);
+    }
+
+    @Test
+    public void testSelectAll() {
+        UserMapper userMapper=sqlSession.getMapper(UserMapper.class);
+        System.out.println(userMapper.selectAll());
     }
 
     // 每个单元测试方法(添加@Test注解的方法)在执行后，此方法都会被juint框架回调，关闭SqlSession实例

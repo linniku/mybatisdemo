@@ -2,6 +2,10 @@
 <!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <settings>
+        <setting name="logPrefix" value="mybatis."/>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
     <environments default="development">
         <environment id="development">
             <transactionManager type="MANAGED" />
@@ -15,7 +19,10 @@
         </environment>
     </environments>
     <mappers>
-        <!--<mapper resource="mappers/UserMapper.xml"/>-->
+        <mapper resource="mappers/UserMapper.xml"/>
         <!--配置注解的方式-->
+        <!--通过class属性指定UserMapper接口的全路径-->
+        <!--<mapper class="com.yht.mapper.UserMapper"/>-->
     </mappers>
+
 </configuration>
