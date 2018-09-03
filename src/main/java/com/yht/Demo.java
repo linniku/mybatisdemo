@@ -1,5 +1,6 @@
 package com.yht;
 
+import com.yht.dao.UserDao;
 import com.yht.domain.User;
 import com.yht.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
@@ -10,9 +11,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 
 /**
  * 2018/9/2 17:56
@@ -60,6 +65,17 @@ public class Demo {
     public void testSelectAll() {
         UserMapper userMapper=sqlSession.getMapper(UserMapper.class);
         System.out.println(userMapper.selectAll());
+    }
+
+    @Test
+    public void testInsertAuto() {
+        User user = new User();
+        user.setName("tianshouzhi2");
+        user.setAge(28);
+        System.out.println("插入前 id:" + user.getId());
+        UserMapper userMapper=sqlSession.getMapper(UserMapper.class);
+        userMapper.insert(user);
+        System.out.println("插入后：" + user.getId());
     }
 
     // 每个单元测试方法(添加@Test注解的方法)在执行后，此方法都会被juint框架回调，关闭SqlSession实例

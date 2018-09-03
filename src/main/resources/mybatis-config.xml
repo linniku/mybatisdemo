@@ -6,23 +6,23 @@
         <setting name="logPrefix" value="mybatis."/>
         <setting name="logImpl" value="LOG4J"/>
     </settings>
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="MANAGED" />
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver" />
-                <property name="url" value="jdbc:mysql://192.168.1.105:3306/learn"/>
-                <!--修改为你自己的用户名密码-->
-                <property name="username" value="root" />
-                <property name="password" value="123456"/>
-            </dataSource>
-        </environment>
-    </environments>
+    <!--<environments default="development">-->
+        <!--<environment id="development">-->
+            <!--<transactionManager type="MANAGED" />-->
+            <!--<dataSource type="POOLED">-->
+                <!--<property name="driver" value="com.mysql.jdbc.Driver" />-->
+                <!--<property name="url" value="jdbc:mysql://172.20.62.41:3306/retail_dev"/>-->
+                <!--&lt;!&ndash;修改为你自己的用户名密码&ndash;&gt;-->
+                <!--<property name="username" value="sa" />-->
+                <!--<property name="password" value="kingdee"/>-->
+            <!--</dataSource>-->
+        <!--</environment>-->
+
+    <!--</environments>-->
     <mappers>
         <mapper resource="mappers/UserMapper.xml"/>
         <!--配置注解的方式-->
         <!--通过class属性指定UserMapper接口的全路径-->
-        <!--<mapper class="com.yht.mapper.UserMapper"/>-->
+        <!--<mapper class="com.yht.mapper.+"/>-->
     </mappers>
-
 </configuration>

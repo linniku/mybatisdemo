@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yht.mapper.UserMapper">
-    <insert id="insert" parameterType="com.yht.domain.User">
+    <insert id="insert" parameterType="com.yht.domain.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user(id,name,age) VALUES (#{id},#{name},#{age})
     </insert>
     <select id="selectById" parameterType="int"
