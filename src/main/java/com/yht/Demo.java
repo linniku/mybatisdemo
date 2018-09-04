@@ -70,8 +70,8 @@ public class Demo {
     @Test
     public void testInsertAuto() {
         User user = new User();
-        user.setName("tianshouzhi2");
-        user.setAge(28);
+        user.setName("tianshouzhi3");
+        user.setAge(29);
         System.out.println("插入前 id:" + user.getId());
         UserMapper userMapper=sqlSession.getMapper(UserMapper.class);
         userMapper.insert(user);

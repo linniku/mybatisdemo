@@ -1,6 +1,7 @@
 package com.yht.mapper;
 
 import com.yht.domain.User;
+import io.github.tianshouzhi.routing.Routing;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * 2018/9/2 18:00
  **/
+@Routing("ds1")
 public interface UserMapper {
 //    @Insert("INSERT INTO user(id,name,age) VALUES (#{id},#{name},#{age})")
     public int insert(User user);

@@ -12,17 +12,20 @@
 	<!--<context:component-scan base-package="com.yht"/>-->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!--数据源配置-->
-		<property name="dataSource" ref="dataSource"/>
+		<!--<property name="dataSource" ref="dataSource"/>-->
+		<property name="dataSource" ref="routingDataSource"/>
 		<!--通过configLocation属性指定mybatis核心配置文件mybatis-config.xml路径-->
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<!--从类路径下加载在mappers包和它的子包中所有的 MyBatis 映射器 XML 文件-->
+		<property name="mapperLocations" value="classpath:mappers/*.xml"/>
 	</bean>
 	<!--数据源使用阿里巴巴的druid-->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-		<property name="username" value="${jdbc.username}"/>
-		<property name="password" value="${jdbc.password}"/>
-		<property name="url" value="${jdbc.url}"/>
-		<property name="driverClassName" value="${jdbc.driver}"/>
-	</bean>
+	<!--<bean id="ds1" class="com.alibaba.druid.pool.DruidDataSource">-->
+		<!--<property name="username" value="${jdbc.username}"/>-->
+		<!--<property name="password" value="${jdbc.password}"/>-->
+		<!--<property name="url" value="${jdbc.url}"/>-->
+		<!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+	<!--</bean>-->
 	<bean id="sessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory"/>
 	</bean>
@@ -33,5 +36,41 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" id="scannerConfigurer">
 		<property name="basePackage" value="com.yht.mapper"/>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+	<!--spring 事务管理器-->
+	<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+		<!--数据源-->
+		<property name="dataSource" ref="ds1"/>
+		<!--默认事务超时时间-->
+		<property name="defaultTimeout" value="30000"/>
+		<!--提交失败的话，也进行回滚-->
+		<property name="rollbackOnCommitFailure" value="true"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<!--配置ds1，访问数据库db1-->
+	<bean id="ds1" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
+		<property name="username" value="sa"/>
+		<property name="password" value="kingdee"/>
+		<property name="url" value="jdbc:mysql://172.20.62.41:3306/retail_dev"/>
+		<property name="driver" value="com.mysql.jdbc.Driver"/>
+	</bean>
+	<!--配置ds2，访问数据库db2-->
+	<bean id="ds2" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
+		<property name="username" value="sa"/>
+		<property name="password" value="kingdee"/>
+		<property name="url" value="jdbc:mysql://172.20.62.41:3306/retail_db"/>
+		<property name="driver" value="com.mysql.jdbc.Driver"/>
+	</bean>
+	<!--配置RoutingDataSource，其管理了ds1和ds2-->
+	<bean id="routingDataSource" class="io.github.tianshouzhi.routing.RoutingDataSource">
+		<property name="targetDataSources">
+			<map>
+				<!--entry的key，将在稍后将看到的@Routing注解中使用到-->
+				<entry key="ds1" value-ref="ds1"/>
+				<entry key="ds2" value-ref="ds2"/>
+			</map>
+		</property>
+		<!--配置默认数据源，在RoutingDataSource无法确定使用哪个数据源时，将会使用默认的数据源-->
+		<property name="defaultTargetDataSource" value="ds1"/>
 	</bean>
 </beans>

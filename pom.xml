@@ -81,7 +81,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.39</version>
         </dependency>
-
+        <!--数据库读写分离-->
+        <dependency>
+            <groupId>io.github.tianshouzhi</groupId>
+            <artifactId>routing-datasource</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 

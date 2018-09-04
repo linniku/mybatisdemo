@@ -19,10 +19,11 @@
         <!--</environment>-->
 
     <!--</environments>-->
-    <mappers>
-        <mapper resource="mappers/UserMapper.xml"/>
-        <!--配置注解的方式-->
-        <!--通过class属性指定UserMapper接口的全路径-->
-        <!--<mapper class="com.yht.mapper.+"/>-->
-    </mappers>
+    <!--<mappers>-->
+        <!--<mapper resource="mappers/UserMapper.xml"/>-->
+        <!--<mapper resource="mappers/UserAccountMapper.xml"/>-->
+        <!--&lt;!&ndash;配置注解的方式&ndash;&gt;-->
+        <!--&lt;!&ndash;通过class属性指定UserMapper接口的全路径&ndash;&gt;-->
+        <!--&lt;!&ndash;<mapper class="com.yht.mapper.+"/>&ndash;&gt;-->
+    <!--</mappers>-->
 </configuration>
